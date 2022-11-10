@@ -15,4 +15,4 @@ router.post('/addUser', async (ctx: Context) => {
   ctx.body = `欢迎${user.username}`
 })
 
-export default router
+module.exports = router
