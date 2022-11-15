@@ -1,4 +1,5 @@
 import Koa, { Context } from 'koa'
+import { fail } from './ResResult';
 
 const globalException = async (ctx: Context, next: Koa.Next) => {
   console.log('进入异常处理');
@@ -7,7 +8,7 @@ const globalException = async (ctx: Context, next: Koa.Next) => {
   }
   catch(err: any) {
     const errResult = err as { message: string }
-    ctx.body = `服务器错误：${errResult.message}`
+    ctx.body = fail(`服务器错误：${errResult.message}`)
   }
 }
 
