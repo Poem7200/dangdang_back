@@ -11,7 +11,8 @@ class AllRouterLoader {
   // 初始化方法
   init(app: Koa) {
     this.app = app;
-    this.loadAllRouterWrapper()
+    const rootRouter = this.loadAllRouterWrapper()
+    this.app.use(rootRouter.routes())
     this.listen()
   }
 
@@ -26,7 +27,7 @@ class AllRouterLoader {
     const allFiles = this.getFiles(dir)
     const allFullFilePaths: string[] = []
     for (let file of allFiles) {
-      const fullFilePath = dir + '\\' + file
+      const fullFilePath = dir + '/' + allFiles
       allFullFilePaths.push(fullFilePath)
     }
     return allFullFilePaths
@@ -39,6 +40,7 @@ class AllRouterLoader {
     const allFullFilePaths = this.getAbsoluteFilePaths()
     // 调用加载所有二级路由到一级路由方法
     this.loadAllRouter(allFullFilePaths, rootRouter)
+    return rootRouter;
   }
 
   isRouter(data: any): data is Router {
