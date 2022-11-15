@@ -4,6 +4,7 @@ import Router from 'koa-router'
 import Koa from 'koa'
 import json from 'koa-json'
 import body from 'koa-body'
+import globalException from './GlobalExce'
 
 class AllRouterLoader {
   app!: Koa
@@ -12,6 +13,8 @@ class AllRouterLoader {
   init(app: Koa) {
     this.app = app;
     const rootRouter = this.loadAllRouterWrapper()
+    // 每次必定先执行中间件
+    this.app.use(globalException)
     this.app.use(rootRouter.routes())
     this.listen()
   }
