@@ -1,8 +1,9 @@
 import Koa, { Context } from 'koa'
 import { fail } from './ResResult';
+import logger from './LogUtil';
 
 const globalException = async (ctx: Context, next: Koa.Next) => {
-  console.log('进入异常处理');
+  logger.info('进入异常处理');
   try {
     await next();
   }
